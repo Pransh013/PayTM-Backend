@@ -1,12 +1,7 @@
 import User from "../../models/User.js";
 
 const userSearchController = async (req, res) => {
-  const {
-    query: { filter },
-  } = req;
-
-  if (!filter) filter = "";
-
+  const filter = req.query.filter || "";
   const regexPattern = new RegExp(filter, "i");
 
   const queryFilter = {
@@ -25,7 +20,8 @@ const userSearchController = async (req, res) => {
   };
 
   const users = await User.find(queryFilter);
-  return res.json({ users });
+  const filteredUsers = users.filter(user => user._id != req.userID)
+  return res.json({ filteredUsers });
 };
 
 export default userSearchController;
