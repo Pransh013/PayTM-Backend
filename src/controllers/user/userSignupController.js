@@ -8,7 +8,7 @@ const signupSchema = zod.object({
   username: zod.string().email(),
   password: zod
     .string()
-    .min(5, { message: "Must be 5 or more characters long" }),
+    .min(6, { message: "Must be 6 or more characters long" }),
   firstName: zod.string().trim().min(1),
   lastName: zod.string().trim().min(1),
 });
@@ -55,6 +55,7 @@ const userSignupController = async (req, res) => {
 
     const userID = user._id;
 
+    //creating an account and adding random balance
     const minValue = 30000;
     const maxValue = 50000;
     const amount =
@@ -72,8 +73,7 @@ const userSignupController = async (req, res) => {
       token,
     });
   } catch (err) {
-    console.error("Error while creating user:", err);
-    return res.status(500).json({ message: "Internal Server Error" });
+    return res.status(500).json({ message: err.message });
   }
 };
 
