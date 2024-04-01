@@ -1,4 +1,4 @@
 {
   "version": 2,
-  "rewrites": [{ "src": "/(.*)", "dest": "/src" }]
+  "rewrites": [{ "source": "/(.*)", "destination": "/src" }]
 }
